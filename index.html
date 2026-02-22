@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>在线聊天</title>
+
+<style>
+body {
+  background: #0f1220;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+}
+
+.chat-box {
+  width: 400px;
+  background: #1b2038;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 70%;
+}
+
+.me {
+  background: #3b82f6;
+  margin-left: auto;
+}
+
+.bot {
+  background: #2a2f4f;
+}
+
+.input-area {
+  display: flex;
+  margin-top: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  margin-left: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #5863c4;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-box">
+  <div class="chat-area" id="chat"></div>
+
+  <div class="input-area">
+    <input id="userInput" placeholder="说点什么..." />
+    <button onclick="sendMessage()">发送</button>
+  </div>
+</div>
+
+<script>
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage(text, "me");
+  input.value = "";
+
+  const replies = [
+    "嗯，我在。",
+    "继续说。",
+    "我听着。",
+    "你今天怎么突然这样说？",
+    "慢慢讲，不急。"
+  ];
+
+  const reply = replies[Math.floor(Math.random() * replies.length)];
+
+  setTimeout(() => {
+    addMessage(reply, "bot");
+  }, 600);
+}
+
+function addMessage(text, type) {
+  const chat = document.getElementById("chat");
+  const msg = document.createElement("div");
+  msg.className = "message " + type;
+  msg.innerText = text;
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
